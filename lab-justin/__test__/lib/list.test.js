@@ -180,6 +180,36 @@ describe('List Module', () => {
     expect(list).toEqual({ '0': 'FooBag', '1': 'Bar', '2': 'BazBag', '3': 'Bop', length: 4 });
   });
 
+  // tests for reduce
+
+  it('reduce(), should return accumulator that starts at zero if no value given', () => {
+    let list = new List();
+    list.push(2);
+    list.push(4);
+    list.push(6);
+    list.push(8);
+
+    const reducer = (accumulator, currentValue) => accumulator + currentValue;
+
+    let value = list.reduce(reducer);
+
+    expect(value).toEqual(20);
+  });
+
+  it('reduce(), when given an accumulator, should return value starting at accumulator', () => {
+    let list = new List();
+    list.push(2);
+    list.push(4);
+    list.push(6);
+    list.push(8);
+
+    const reducer = (accumulator, currentValue) => accumulator + currentValue;
+
+    let value = list.reduce(reducer, 8);
+
+    expect(value).toEqual(28);
+  });
+
   // tests for slice
   it('slice(), when run, if there is one positive parameter, will return array from parameter to end', () => {
     let list = new List();
@@ -216,6 +246,17 @@ describe('List Module', () => {
     list.slice(1, 3);
 
     expect(list).toEqual({ '0': 'Foo', '1': 'Bar', '2': 'Baz', '3': 'Bop', length: 4 });
+  });
+
+  it('slice(), when run with negative number, should return that number from the end', () => {
+    let list = new List();
+    list.push('Foo');
+    list.push('Bar');
+    list.push('Baz');
+    list.push('Bop');
+
+    let word = list.slice(-1);
+    expect(word).toEqual(['Bop']);
   });
 
   

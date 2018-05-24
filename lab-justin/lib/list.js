@@ -80,14 +80,15 @@ class List {
     }
     return newList;
   } 
-  //
-  // reduce(callback, state) {
-  // for (let i = 0; i <= this.length - 1; i++) {
-  //   state = callback(this[i], i);
-  // }
-  // return state;
-  // }
-  //
+  
+  reduce(callback, state) {
+    state = state || 0;
+  for (let i = 0; i <= this.length - 1; i++) {
+    state = callback(state, this[i]);
+  }
+  return state;
+  }
+  
   slice(...args) {
     let newList = new List();
     let array = [];
@@ -105,17 +106,18 @@ class List {
         k++;
       }
 
-    } else if (args.length === 1 && !this[args[0]]) { 
+    } else if (args.length === 1 && !this[args[0]] && args[0] > 0) { 
       return []; 
     } else if (args.length === 1 && args[0] < 0) {
+      
+      beg = this.length + args[0];
+      end = this.length;
 
-      beg = this.length;
-      end = args[0];
-
-      for (let i = beg; i >= end; i--) {
+      for (let i = beg; i < end; i++) {
         array[k] = this[i];
         k++;
       }
+      return array;
     }
     // if (beg)
     for (let i = 0; i < array.length; i++) {
